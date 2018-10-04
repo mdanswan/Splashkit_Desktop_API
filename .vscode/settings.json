@@ -10,5 +10,14 @@
     "terminal.integrated.shellArgs.windows": [
         "--login",
         "-i"
-    ]
+    ],
+    "files.associations": {
+        "vector": "cpp",
+        "array": "cpp",
+        "initializer_list": "cpp",
+        "string_view": "cpp",
+        "utility": "cpp",
+        "new": "cpp",
+        "future": "cpp"
+    }
 }
