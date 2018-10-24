@@ -18,6 +18,9 @@
         "string_view": "cpp",
         "utility": "cpp",
         "new": "cpp",
-        "future": "cpp"
+        "future": "cpp",
+        "*.tcc": "cpp",
+        "fstream": "cpp",
+        "thread": "cpp"
     }
 }

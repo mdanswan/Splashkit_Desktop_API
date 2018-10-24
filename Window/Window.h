@@ -18,6 +18,7 @@ namespace splashkit_desktop
             /**
              * Members
              */
+            string title;
             Bound bound;
             color background_color;
             vector<Container*> containers;
@@ -66,10 +67,24 @@ namespace splashkit_desktop
              * Constructors *
              ****************/
             /**
+             * Default
+             */
+            Window();
+            /**
+             * @param string    The title of the Window
+             */
+            Window(string title);
+            /**
              * @param string    The title of the Window
              * @param Bound     The Window's coordinates, width and height
              */
             Window(string title, Bound bound);
+            /**
+             * @param string                The title of the Window
+             * @param Bound                 The Window's coordinates, width and height
+             * @param vector<Container*>    The Containers to be part of the Window
+             */
+            Window(string title, Bound bound, vector<Container*> containers);
 
             /*************************
              * Processing Management *
@@ -92,17 +107,13 @@ namespace splashkit_desktop
              * Window Management *
              *********************/
             /**
+             * Used to open the Window (initally)
+             */
+            void open();
+            /**
              * Closes the current Window
              */
-            void close_window();
-            /**
-             * Hides the current Window
-             */
-            void hide_window();
-            /**
-             * Shows the current Window
-             */
-            void show_window();
+            void close();
 
             /************************
              * Container Management *
@@ -141,6 +152,12 @@ namespace splashkit_desktop
              * @returns     The list of Containers within the Window
              */
             vector<Container*> get_containers();
+            /**
+             * Retrieves the Title of the Window
+             *
+             * @returns     The Title of the Window
+             */
+            string get_title();
 
             /******************
              * Public Setters *
@@ -151,6 +168,12 @@ namespace splashkit_desktop
              * @param color     The new background color of the Window
              */
             void set_background_color(color bg_color);
+            /**
+             * Sets the title of the Window
+             *
+             * @param string     The new title of the Window
+             */
+            void set_title(string title);
     };
 } // namespace splashkit_desktop
 

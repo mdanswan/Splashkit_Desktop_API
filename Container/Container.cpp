@@ -38,15 +38,35 @@ void Container::process_container_events()
 {
     for (Component *c : get_components())
     {
-        c->check_events();
+        c->check_events(get_bound());
     }
 
     check_events();
 }
 
-void Container::check_events()
+/**
+ * Component Management
+ */
+void Container::add_component(Component* component)
 {
-    // TODO: Implement
+    components.push_back(component);
+}
+
+void Container::remove_component(Component* component)
+{
+    vector<Component*> cs = get_components();
+
+    for (int i = 0; i < cs.size(); i++)
+    {
+        Component* c = cs[i];
+        if (component == c)
+        {
+            Component* last = cs.back();
+            cs[i] = last;
+            cs.pop_back();
+            delete component;
+        }
+    }
 }
 
 /**

@@ -41,9 +41,9 @@ void Bound::set_x(int x)
     this->x = x;
 }
 
-void Bound::set_y(int x)
+void Bound::set_y(int y)
 {
-    this->x = x;
+    this->y = y;
 }
 
 void Bound::set_width(int width)

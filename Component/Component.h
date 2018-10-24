@@ -36,10 +36,12 @@ namespace splashkit_desktop
             /********************
              * Event Management *
              ********************/
-            /**
+            /** [VIRTUAL]
              * Checks the events for the Component object. Only events registered to this object will be checked.
+             *
+             * @param Container     The bounds of the Container to compare to.
              */
-            virtual void check_events() = 0;
+            virtual void check_events(Bound containing_bound) = 0;
 
             /******************
              * Public Getters *

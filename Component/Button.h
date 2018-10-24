@@ -44,7 +44,7 @@ namespace splashkit_desktop
             /**********************
              * Drawing Management *
              **********************/
-            /** [VIRTUAL]
+            /** [VIRTUAL -> OVERRIDEN]
              * Manages the Drawing process for the Button Component
              *
              * @param Bound     The bounds of the parent Container Component segment
@@ -54,10 +54,12 @@ namespace splashkit_desktop
             /********************
              * Event Management *
              ********************/
-            /**
+            /** [VIRTUAL -> OVERRIDEN]
              * Checks the events for the Button object. Only events registered to this object will be checked.
+             *
+             * @param Container     The bounds of the Container to compare to.
              */
-            virtual void check_events();
+            virtual void check_events(Bound containing_bound);
 
             /***********************
              * Bounding Management *

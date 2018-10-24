@@ -5,41 +5,34 @@ using namespace std;
 using namespace splashkit_desktop;
 
 Button::Button() : Component() {}
-
-Button::Button(Bound bound) : Component(bound) {}
-
-Button::Button(Bound bound, string text) : Component(bound)
-{
-    set_text(text);
-}
-
-Button::Button(Bound bound, string text, IClickListener *click_listener) : Component(bound)
-{
-    set_text(text);
-    set_click_listener(click_listener);
-}
+Button::Button(Bound bound) : Component(bound), bound(bound) {}
+Button::Button(Bound bound, string text) : Component(bound), bound(bound), text(text) {}
+Button::Button(Bound bound, string text, IClickListener *click_listener) : Component(bound), bound(bound), text(text), click_listener(click_listener) {}
 
 void Button::draw_component(Bound containing_bound)
 {
     Bound &cb = containing_bound;
+    Bound b = Component::get_bound();
 
-    draw_rectangle(COLOR_BLUE, cb.get_x(), cb.get_y(), cb.get_width(), cb.get_height());
+    fill_rectangle(COLOR_PINK, cb.get_x() + b.get_x(), cb.get_y() + b.get_y(), b.get_width(), b.get_height());
 
-    int text_x = cb.get_x() + cb.get_width() / 2 - get_text().size() / 2;
-    int text_y = cb.get_y() + cb.get_height() / 2 - get_text().size() / 2;
+    int text_x = cb.get_x() + b.get_x();
+    int text_y = cb.get_y() + b.get_y();
 
     draw_text(get_text(), COLOR_WHITE, text_x, text_y);
 }
 
-void Button::check_events()
+void Button::check_events(Bound containing_bound)
 {
     /*
      * Button Clicked Check
      */
     if (in_bound())
     {
-        if (mouse_clicked(LEFT_BUTTON))
+        write_line("In Bounded");
+        if (key_typed(K_KEY))
         {
+            write_line("In Clicked");
             get_click_listener()->on_click();
         }
     }

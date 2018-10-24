@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "splashkit.h"
 #include "../Component/Component.h"
 #include "../Utils/Bound.h"
 
@@ -61,10 +62,16 @@ namespace splashkit_desktop
              * Processes the events for all Components
              */
             void process_container_events();
-            /**
+            /** [VIRTUAL]
              * Checks the events for the Container object. Only events registered to this object will be checked.
              */
-            void check_events();
+            virtual void check_events() = 0;
+
+            /************************
+             * Component Management *
+             ************************/
+            void add_component(Component* component);
+            void remove_component(Component* component);
 
             /******************
              * Public Getters *

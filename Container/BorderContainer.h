@@ -22,6 +22,10 @@ namespace splashkit_desktop
              * Constructors *
              ****************/
             BorderContainer();
+            /**
+             * @param Bound     The Bound of the Border Container
+             */
+            BorderContainer(Bound bound);
 
             /*******************************
              * Super Class Virtual Methods *
@@ -30,6 +34,10 @@ namespace splashkit_desktop
              * Manages the drawing process for Components
              */
             virtual void draw_components();
+            /** [VIRTUAL -> OVERRIDEN]
+             * Checks the events for the Container object. Only events registered to this object will be checked.
+             */
+            virtual void check_events();
 
             /******************
              * Public Getters *

@@ -1,4 +1,4 @@
-#include <future>
+#include <vector>
 
 #include "Window.h"
 
@@ -8,22 +8,10 @@ using namespace splashkit_desktop;
 /**
  * Constructor
  */
-Window::Window(string title, Bound bound)
-{
-    window w;
-
-    if (&bound != NULL)
-    {
-        w = open_window(title, bound.get_width(), bound.get_height());
-        move_window_to(w, bound.get_x(), bound.get_y());
-    }
-    else
-        w = open_window(title, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-
-    set_window(w);
-
-    async(Window::process_window, this);
-}
+Window::Window() : title("Window"), background_color(COLOR_WHITE) {}
+Window::Window(string title) : title(title) {}
+Window::Window(string title, Bound bound) : title(title), bound(bound) {}
+Window::Window(string title, Bound bound, vector<Container*> containers) : title(title), bound(bound), containers(containers) {}
 
 /**
  * Window Processing Management
@@ -32,10 +20,11 @@ void Window::process_window()
 {
     do
     {
+        delay(1000);
         process_events();
         process_window_events();
         draw_window();
-    } while (true);
+    } while (!quit_requested());
 }
 
 /**
@@ -101,19 +90,28 @@ void Window::remove_container(Container *container)
 /**
  * Window Visiblity Management
  */
-void Window::close_window()
+void Window::open()
 {
-    close_current_window();
+    window w;
+
+    Bound b = get_bound();
+
+    if (&b != NULL)
+    {
+        w = open_window(title, bound.get_width(), bound.get_height());
+        move_window_to(w, bound.get_x(), bound.get_y());
+    }
+    else
+        w = open_window(title, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+
+    set_window(w);
+
+    process_window();
 }
 
-void Window::hide_window()
+void Window::close()
 {
-    hide_window();
-}
-
-void Window::show_window()
-{
-    show_window();
+    close_window(get_window());
 }
 
 /**
@@ -134,6 +132,16 @@ vector<Container*> Window::get_containers()
     return this->containers;
 }
 
+string Window::get_title()
+{
+    return this->title;
+}
+
+window Window::get_window()
+{
+    this->w;
+}
+
 void Window::set_background_color(color bg_color)
 {
     this->background_color = bg_color;
@@ -142,6 +150,11 @@ void Window::set_background_color(color bg_color)
 void Window::set_bound(Bound bound)
 {
     this->bound = bound;
+}
+
+void Window::set_title(string title)
+{
+    this->title = title;
 }
 
 void Window::set_window(window w)

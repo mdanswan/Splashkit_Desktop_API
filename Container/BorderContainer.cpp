@@ -6,6 +6,11 @@ using namespace splashkit_desktop;
 
 BorderContainer::BorderContainer() {}
 
+BorderContainer::BorderContainer(Bound bound) : Container(bound) {}
+
+/**
+ * Overriden Super Class Methods
+ */
 void BorderContainer::draw_components()
 {
     Bound b = get_bound();
@@ -22,7 +27,8 @@ void BorderContainer::draw_components()
 
     Bound top_left_bound(x, y, width, height);
 
-    top_left->draw_component(top_left_bound);
+    if (get_top_left() != nullptr)
+        get_top_left()->draw_component(top_left_bound);
 
     /*
      * top right bound definition
@@ -34,7 +40,8 @@ void BorderContainer::draw_components()
 
     Bound top_right_bound(x, y, width, height);
 
-    top_right->draw_component(top_right_bound);
+    if (get_top_right() != nullptr)
+        get_top_right()->draw_component(top_right_bound);
 
     /*
      * bottom left bound definition
@@ -46,7 +53,8 @@ void BorderContainer::draw_components()
 
     Bound bottom_left_bound(x, y, width, height);
 
-    bottom_left->draw_component(bottom_left_bound);
+    if (get_bottom_left() != nullptr)
+        get_bottom_left()->draw_component(bottom_left_bound);
 
     /*
      * bottom right bound definition
@@ -58,7 +66,13 @@ void BorderContainer::draw_components()
 
     Bound bottom_right_bound(x, y, width, height);
 
-    bottom_right->draw_component(bottom_right_bound);
+    if (get_bottom_right() != nullptr)
+        get_bottom_right()->draw_component(bottom_right_bound);
+}
+
+void BorderContainer::check_events()
+{
+    // TODO: Implement
 }
 
 /**
@@ -86,20 +100,36 @@ Component* BorderContainer::get_bottom_right()
 
 void BorderContainer::set_top_left(Component *top_left)
 {
+    if (get_top_left() != nullptr)
+        remove_component(get_top_left());
+
     this->top_left = top_left;
+    add_component(top_left);
 }
 
 void BorderContainer::set_top_right(Component *top_right)
 {
+    if (get_top_right() != nullptr)
+        remove_component(get_top_right());
+
     this->top_right = top_right;
+    add_component(top_right);
 }
 
 void BorderContainer::set_bottom_left(Component *bottom_left)
 {
+    if (get_bottom_left() != nullptr)
+        remove_component(get_bottom_left());
+
     this->bottom_left = bottom_left;
+    add_component(bottom_left);
 }
 
 void BorderContainer::set_bottom_right(Component *bottom_right)
 {
+    if (get_bottom_right() != nullptr)
+        remove_component(get_bottom_right());
+
     this->bottom_right = bottom_right;
+    add_component(bottom_right);
 }
